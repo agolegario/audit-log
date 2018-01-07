@@ -1,10 +1,11 @@
 # audit-log
 
 * Modelo de Log para web-api .NET >= 4.5
-* Log captura dados request e response da applicação capturando inclusive o body.
+* Log captura dados request e response da aplicação capturando inclusive o body.
 * A saida do log pode ser vista na janela output do visual studio.
 * Verificar a janela task do visual studio para identificar o ponto de persistencia do Log.
 * Raiz do repositorio contem arquivo audit-log.postman_collection.json para ser importado no postman para auxiliar nos testes.
+* A propriedade HttpError somente é preenchida quando temos statuscode maior ou igual 500.
 
 ### Output
 ```json
