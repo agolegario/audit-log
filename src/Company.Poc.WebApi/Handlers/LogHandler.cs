@@ -17,13 +17,13 @@ namespace Company.Poc.WebApi.Handlers
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var apiLogEntry = CreateLog(request);
+            var logModel = CreateLog(request);
             if (request.Content != null)
             {
                 await request.Content.ReadAsStringAsync()
                     .ContinueWith(task =>
                     {
-                        apiLogEntry.RequestContentBody = JsonConvert.DeserializeObject(task.Result);
+                        logModel.RequestContentBody = JsonConvert.DeserializeObject(task.Result);
                     }, cancellationToken);
             }
 
@@ -32,22 +32,22 @@ namespace Company.Poc.WebApi.Handlers
                 {
                     var response = task.Result;
                     
-                    apiLogEntry.ResponseStatusCode = (int)response.StatusCode;
-                    if (apiLogEntry.ResponseStatusCode >= 500)
+                    logModel.ResponseStatusCode = (int)response.StatusCode;
+                    if (logModel.ResponseStatusCode >= 500)
                     {
-                        apiLogEntry.HttpError = response.Content.ReadAsAsync<HttpError>(cancellationToken).Result;
+                        logModel.HttpError = response.Content.ReadAsAsync<HttpError>(cancellationToken).Result;
                     }
-                    apiLogEntry.ResponseTimestamp = DateTime.Now;
+                    logModel.ResponseTimestamp = DateTime.Now;
 
                     if (response.Content != null)
                     {
-                        apiLogEntry.LogId = request.GetCorrelationId();
-                        apiLogEntry.ResponseContentBody = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
-                        apiLogEntry.ResponseHeaders = SerializeHeaders(response.Content.Headers);
+                        logModel.LogId = request.GetCorrelationId();
+                        logModel.ResponseContentBody = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                        logModel.ResponseHeaders = GetHeaders(response.Content.Headers);
                     }
                     
                     // TODO: ADD DATABASE OR WRITE IN FILE
-                    Debug.Write(JsonConvert.SerializeObject(apiLogEntry, Formatting.Indented));
+                    Debug.Write(JsonConvert.SerializeObject(logModel, Formatting.Indented));
 
                     return response;
                 }, cancellationToken);
@@ -64,13 +64,13 @@ namespace Company.Poc.WebApi.Handlers
                 Machine = Environment.MachineName,
                 RequestIpAddress = context.Request.UserHostAddress,
                 RequestMethod = request.Method.Method,
-                RequestHeaders = SerializeHeaders(request.Headers),
+                RequestHeaders = GetHeaders(request.Headers),
                 RequestTimestamp = DateTime.Now,
                 RequestUri = request.RequestUri.ToString()              
             };
         }
 
-        private static IDictionary<string, string> SerializeHeaders(HttpHeaders headers)
+        private static IDictionary<string, string> GetHeaders(HttpHeaders headers)
         {
             var retorno = new Dictionary<string, string>();
 
