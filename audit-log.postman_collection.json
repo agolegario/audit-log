@@ -1,0 +1,156 @@
+{
+	"info": {
+		"name": "audit-log",
+		"_postman_id": "3b067dcc-5ee1-5c09-70eb-a1632a9cb041",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET BY ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:56390/api/values/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "56390",
+					"path": [
+						"api",
+						"values",
+						"5"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Id\": \"0\",\n    \"Description\": \"Novo produto\",\n    \"Price\": 15000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:56390/api/values",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "56390",
+					"path": [
+						"api",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"Id\": 6,\n        \"Description\": \"Novo produto\",\n        \"Price\": 999.99\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:56390/api/values",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "56390",
+					"path": [
+						"api",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:56390/api/values/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "56390",
+					"path": [
+						"api",
+						"values",
+						"6"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GETALL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"Id\": 4,\n        \"Email\": \"adalbertoolegario@gmail.com\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:56390/api/values",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "56390",
+					"path": [
+						"api",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
